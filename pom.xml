@@ -1,10 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.openopen</groupId>
     <artifactId>sht20Logger</artifactId>
     <version>1.0-SNAPSHOT</version>
+
+
+    <repositories>
+        <repository>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <id>ias-snapshots</id>
+            <name>Infinite Automation Snapshot Repository</name>
+            <url>https://maven.mangoautomation.net/repository/ias-snapshot/</url>
+        </repository>
+        <repository>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>ias-releases</id>
+            <name>Infinite Automation Release Repository</name>
+            <url>https://maven.mangoautomation.net/repository/ias-release/</url>
+        </repository>
+    </repositories>
+
+
     <!--  1. 打包成 war for webapp folder  -->
     <packaging>war</packaging>
 
@@ -102,8 +131,8 @@
                         <configuration>
                             <target>
                                 <zip destfile="${project.build.directory}/app.zip">
-                                    <zipfileset dir="${project.build.directory}/docker" />
-                                    <zipfileset dir="${project.build.directory}" includes="${project.artifactId}.jar" />
+                                    <zipfileset dir="${project.build.directory}/docker"/>
+                                    <zipfileset dir="${project.build.directory}" includes="${project.artifactId}.jar"/>
                                 </zip>
                             </target>
                         </configuration>
@@ -117,8 +146,6 @@
         <filters>
             <filter>src/main/filters/${api.env}/DB.properties</filter>
             <filter>src/main/filters/${api.env}/application.yml</filter>
-
-
 
 
         </filters>
@@ -142,9 +169,7 @@
         </resources>
 
 
-
     </build>
-
 
 
     <!-- 5. profiles -->
@@ -176,7 +201,6 @@
             </properties>
         </profile>
     </profiles>
-
 
 
     <dependencies>
@@ -274,8 +298,6 @@
         </dependency>
 
 
-
-
         <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
@@ -299,7 +321,6 @@
         </dependency>
 
 
-
         <!-- === basic dependency === -->
 
 
@@ -312,12 +333,31 @@
         </dependency>
 
 
-
+        <!--   modbus4j    -->
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>5.7.9</version>
+        </dependency>
+        <dependency>
+            <groupId>com.infiniteautomation</groupId>
+            <artifactId>modbus4j</artifactId>
+            <version>3.0.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.rxtx</groupId>
+            <artifactId>rxtx</artifactId>
+            <version>2.1.7</version>
+        </dependency>
+        <!--   modbus4j    -->
 
 
     </dependencies>
-
-
 
 
 </project>

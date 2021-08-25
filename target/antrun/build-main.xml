@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <project name="maven-antrun-" default="main"  >
 <target name="main">
-  <zip destfile="/Users/openopen/Desktop/jamod/sht20Logger/target/app.zip">
-    <zipfileset dir="/Users/openopen/Desktop/jamod/sht20Logger/target/docker"/>
-    <zipfileset includes="sht20Logger.jar" dir="/Users/openopen/Desktop/jamod/sht20Logger/target"/>
+  <zip destfile="/Users/openopen/Desktop/sht20Logger/target/app.zip">
+    <zipfileset dir="/Users/openopen/Desktop/sht20Logger/target/docker"/>
+    <zipfileset includes="sht20Logger.jar" dir="/Users/openopen/Desktop/sht20Logger/target"/>
   </zip>
 </target>
 </project>
