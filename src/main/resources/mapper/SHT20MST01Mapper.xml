@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.openopen.dao.SHT20MST01Mapper">
+  <resultMap id="BaseResultMap" type="com.openopen.model.SHT20MST01">
+    <result column="temperature" jdbcType="NUMERIC" property="temperature" />
+    <result column="humidity" jdbcType="NUMERIC" property="humidity" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="date_create" jdbcType="TIMESTAMP" property="dateCreate" />
+    <result column="date_update" jdbcType="TIMESTAMP" property="dateUpdate" />
+  </resultMap>
+  <insert id="insert" parameterType="com.openopen.model.SHT20MST01">
+    insert into sht20mst01 (temperature, humidity, status, 
+      date_create, date_update)
+    values (#{temperature,jdbcType=NUMERIC}, #{humidity,jdbcType=NUMERIC}, #{status,jdbcType=VARCHAR}, 
+      #{dateCreate,jdbcType=TIMESTAMP}, #{dateUpdate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.openopen.model.SHT20MST01">
+    insert into sht20mst01
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="temperature != null">
+        temperature,
+      </if>
+      <if test="humidity != null">
+        humidity,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="dateCreate != null">
+        date_create,
+      </if>
+      <if test="dateUpdate != null">
+        date_update,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="temperature != null">
+        #{temperature,jdbcType=NUMERIC},
+      </if>
+      <if test="humidity != null">
+        #{humidity,jdbcType=NUMERIC},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="dateCreate != null">
+        #{dateCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dateUpdate != null">
+        #{dateUpdate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+</mapper>
