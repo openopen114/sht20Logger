@@ -17,49 +17,51 @@ import java.util.List;
 @RequestMapping("/api")
 public class PersonController {
 
-  // Logger
-  private Logger logger = LoggerFactory.getLogger(PersonController.class);
+    // Logger
+    private Logger logger = LoggerFactory.getLogger(PersonController.class);
 
-  @Autowired private PersonService personService;
+    @Autowired
+    private PersonService personService;
 
-  /*
-   *
-   * 查詢 Person By ID
-   *
-   * */
-  //git commit -m "first commit"
-  @RequestMapping(
-      value = "/person/id/{_id}",
-      method = RequestMethod.GET,
-      produces = {"application/json"})
-  public Person getPersonById(@PathVariable("_id") String _id) {
-    logger.info("getPersonById _id: " + _id);
+    /*
+     *
+     * 查詢 Person By ID
+     *
+     * */
+    //http://localhost:8080/api/person/id/1
+    @RequestMapping(
+            value = "/person/id/{_id}",
+            method = RequestMethod.GET,
+            produces = {"application/json"})
+    public Person getPersonById(@PathVariable("_id") String _id) {
+        logger.info("getPersonById _id: " + _id);
 
-    return personService.getPersonById(_id);
-  }
+        return personService.getPersonById(_id);
+    }
 
-  /*
-   *
-   * 新增 Person
-   *
-   * */
-  //http://localhost:8080/api/add/person
-  @PostMapping(
-      value = "/add/person",
-      produces = {"application/json"})
-  @Transactional
-  public String insertPersonByList(@RequestBody String _json) {
-    logger.info("===> insertPersonByList");
-    logger.info(_json);
-    Gson gson = new Gson();
-    List<Person> list = gson.fromJson(_json, new TypeToken<List<Person>>() {}.getType());
+    /*
+     *
+     * 新增 Person
+     *
+     * */
+    //http://localhost:8080/api/add/person
+    @PostMapping(
+            value = "/add/person",
+            produces = {"application/json"})
+    @Transactional
+    public String insertPersonByList(@RequestBody String _json) {
+        logger.info("===> insertPersonByList");
+        logger.info(_json);
+        Gson gson = new Gson();
+        List<Person> list = gson.fromJson(_json, new TypeToken<List<Person>>() {
+        }.getType());
 
-    personService.insertPersonByList(list);
+        personService.insertPersonByList(list);
 
-    JsonObject obj = new JsonObject();
-    obj.addProperty("ACTION", "insertPersonByList");
-    obj.addProperty("RESULT", "OK");
+        JsonObject obj = new JsonObject();
+        obj.addProperty("ACTION", "insertPersonByList");
+        obj.addProperty("RESULT", "OK");
 
-    return new Gson().toJson(obj);
-  }
+        return new Gson().toJson(obj);
+    }
 }
