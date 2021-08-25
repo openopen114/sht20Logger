@@ -65,7 +65,7 @@ public class SHT20MST01Job implements Job {
         logger.info("===> SHT20MST01Job" + df.format(new Date()));
 
         // print serial port list
-        printSerialProtList();
+        // printSerialProtList();
 
 
         // Modbus 初始化 連接
@@ -87,7 +87,7 @@ public class SHT20MST01Job implements Job {
         model.setDateCreate(moment.getSysdate());
 
         //塞資料到 DB
-        sht20mst01Job.sht20mst01Service.insertSht20mst01Model(model);
+        //sht20mst01Job.sht20mst01Service.insertSht20mst01Model(model);
 
         //關閉串口
         wrapper.close();
@@ -118,7 +118,8 @@ public class SHT20MST01Job implements Job {
     public static void initModbusConnect() throws ModbusInitException {
 
         //9600 8N1 連接
-        wrapper = new SerialPortWrapperImpl("/dev/tty.usbserial-AG0KA7Z1", 9600,
+        ///dev/tty.usbserial-AG0KA7Z1
+        wrapper = new SerialPortWrapperImpl("/dev/ttyUSB0", 9600,
                 SerialPort.DATABITS_8, SerialPort.STOPBITS_1, SerialPort.PARITY_NONE, 0, 0);
         ModbusFactory modbusFactory = new ModbusFactory();
         master = modbusFactory.createRtuMaster(wrapper);
