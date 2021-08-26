@@ -76,9 +76,6 @@ public class SHT20MST01Job implements Job {
 
         logger.info("===> SHT20MST01Job" + df.format(new Date()));
 
-        // print serial port list
-        // printSerialProtList();
-
 
         // Modbus 初始化 連接
         initModbusConnect();

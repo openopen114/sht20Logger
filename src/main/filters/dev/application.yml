@@ -40,4 +40,10 @@ gcloud.sql.cloudSqlInstance: madou-goole-sheet-std-c19:asia-east1:my-tst-postgre
 serialPort1: /dev/tty.usbserial-AG0KA7Z1
 
 
+#API
+API:
+  #新增SHT20 Model API
+  add_sht20_url: https://sht20-afu5qzwidq-de.a.run.app/api/add/sht20
+
+
 

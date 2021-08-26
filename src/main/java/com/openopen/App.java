@@ -52,6 +52,10 @@ public class App {
                 .withIdentity("SHT20MST01Job", "group1")
                 .build();
 
+        JobDetail TransDataToCloudJob = newJob(com.openopen.job.TransDataToCloudJob.class)
+                .withIdentity("TransDataToCloudJob", "group1")
+                .build();
+
 
         // [2] define the Trigger
         Trigger triggerSHT20MST01Job = newTrigger()
@@ -60,14 +64,24 @@ public class App {
                 .forJob(SHT20MST01Job)
                 .build();
 
+        Trigger triggerTransDataToCloudJob = newTrigger()
+                .withIdentity("triggerTransDataToCloudJob", "group1")
+                .withSchedule(CronScheduleBuilder.cronSchedule("0 0/5 * * * ?"))
+                .forJob(TransDataToCloudJob)
+                .build();
+
         // [3] deleteJon is already exist
         if (scheduler.checkExists(SHT20MST01Job.getKey())) {
             scheduler.deleteJob(SHT20MST01Job.getKey());
+        }
+        if (scheduler.checkExists(TransDataToCloudJob.getKey())) {
+            scheduler.deleteJob(TransDataToCloudJob.getKey());
         }
 
 
         // [4] define the scheduleJob
         scheduler.scheduleJob(SHT20MST01Job, triggerSHT20MST01Job);
+        scheduler.scheduleJob(TransDataToCloudJob, triggerTransDataToCloudJob);
 
 
     }

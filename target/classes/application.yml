@@ -1,11 +1,11 @@
 #APIENV
-APIENV: pi-prod
+APIENV: pi-dev
 #配置mysql
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/postgres
-    username: pi
-    password: pi
+    username: postgres
+    password: postgres
     driverClassName: org.postgresql.Driver
     #Druid连接池配置
     initialSize: 1
@@ -37,5 +37,13 @@ gcloud.sql.socketFactory: com.google.cloud.sql.postgres.SocketFactory
 gcloud.sql.cloudSqlInstance: madou-goole-sheet-std-c19:asia-east1:my-tst-postgres-002
 
 #Serial Port
-serialPort1: /dev/ttyUSB0
+serialPort1: /dev/tty.usbserial-AG0KA7Z1
+
+
+#API
+API:
+  #新增SHT20 Model API
+  add_sht20_url: https://sht20-afu5qzwidq-de.a.run.app/api/add/sht20
+
+
 
