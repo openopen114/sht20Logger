@@ -17,6 +17,7 @@ import org.quartz.JobExecutionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -39,8 +40,19 @@ public class SHT20MST01Job implements Job {
     //用於在依賴關係注入完成之後需要執行的方法上，以執行任何初始化
     @PostConstruct
     public void init() {
+
         sht20mst01Job = this;
     }
+
+
+    //串口1
+    static private String serialPort1;
+
+    @Value("${serialPort1}")
+    public void setSerialPort1(String serialPort1) {
+        this.serialPort1 = serialPort1;
+    }
+
 
     // Modbus Master
     static ModbusMaster master = null;
@@ -87,7 +99,7 @@ public class SHT20MST01Job implements Job {
         model.setDateCreate(moment.getSysdate());
 
         //塞資料到 DB
-        //sht20mst01Job.sht20mst01Service.insertSht20mst01Model(model);
+        sht20mst01Job.sht20mst01Service.insertSht20mst01Model(model);
 
         //關閉串口
         wrapper.close();
@@ -119,7 +131,9 @@ public class SHT20MST01Job implements Job {
 
         //9600 8N1 連接
         ///dev/tty.usbserial-AG0KA7Z1
-        wrapper = new SerialPortWrapperImpl("/dev/ttyUSB0", 9600,
+
+        System.out.println("===> serialPort1:" + sht20mst01Job.serialPort1);
+        wrapper = new SerialPortWrapperImpl(sht20mst01Job.serialPort1, 9600,
                 SerialPort.DATABITS_8, SerialPort.STOPBITS_1, SerialPort.PARITY_NONE, 0, 0);
         ModbusFactory modbusFactory = new ModbusFactory();
         master = modbusFactory.createRtuMaster(wrapper);

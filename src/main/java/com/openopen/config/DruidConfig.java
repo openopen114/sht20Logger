@@ -80,9 +80,6 @@ public class DruidConfig {
     private String slowSqlMillis;
 
 
-
-
-
     @Value("${APIENV}")
     private String APIENV;
 
@@ -95,7 +92,7 @@ public class DruidConfig {
 
     @Bean     //声明其为Bean实例
     @Primary  //在同样的DataSource中，首先使用被标注的DataSource
-    public DruidDataSource dataSource(){
+    public DruidDataSource dataSource() {
         DruidDataSource pool = new DruidDataSource();
 
 
@@ -125,14 +122,12 @@ public class DruidConfig {
         logger.info(connectionProperties);
 
 
-
-
-        if(APIENV.equals("dev")) {
+        if (APIENV.equals("dev") || APIENV.startsWith("pi-")) {
             //開發環境
             pool.setUrl(this.dbUrl);
             pool.setUsername(username);
             pool.setPassword(password);
-        }else {
+        } else {
             //cloud 環境
             Properties connProps = new Properties();
             connProps.setProperty("user", username);
@@ -140,15 +135,12 @@ public class DruidConfig {
             connProps.setProperty("sslmode", "disable");
             connProps.setProperty("socketFactory", socketFactory);
             connProps.setProperty("cloudSqlInstance", cloudSqlInstance);
-            connProps.setProperty("connectTimeout","60");
+            connProps.setProperty("connectTimeout", "60");
             connProps.setProperty("socketTimeout", "60");
             connProps.setProperty("loginTimeout", "60");
             pool.setUrl(this.dbUrl);
             pool.setConnectProperties(connProps);
         }
-
-
-
 
 
         logger.info("");
@@ -159,10 +151,10 @@ public class DruidConfig {
 
         logger.info("==> db url: " + dbUrl);
         logger.info("connectionProperties:" + connectionProperties);
-        logger.info("socketFactory==>"+socketFactory);
-        logger.info("cloudSqlInstance===>"+cloudSqlInstance);
-        logger.info("username:"+username);
-        logger.info("password:"+password);
+        logger.info("socketFactory==>" + socketFactory);
+        logger.info("cloudSqlInstance===>" + cloudSqlInstance);
+        logger.info("username:" + username);
+        logger.info("password:" + password);
 
 
         return pool;

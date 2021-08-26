@@ -1,11 +1,11 @@
 #APIENV
-APIENV: dev
+APIENV: pi-prod
 #配置mysql
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/postgres
-    username: postgres
-    password: postgres
+    username: pi
+    password: pi
     driverClassName: org.postgresql.Driver
     #Druid连接池配置
     initialSize: 1
@@ -36,4 +36,6 @@ mybatis:
 gcloud.sql.socketFactory: com.google.cloud.sql.postgres.SocketFactory
 gcloud.sql.cloudSqlInstance: madou-goole-sheet-std-c19:asia-east1:my-tst-postgres-002
 
+#Serial Port
+serialPort1: /dev/ttyUSB0
 
